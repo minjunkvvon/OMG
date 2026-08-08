@@ -846,8 +846,9 @@ body.page-moon.slides .page-header { padding-top: 3.2rem; margin-bottom: 1.5rem;
   font-family: "Noto Sans KR",sans-serif;
   font-size: clamp(13px,1.3vw,15px);
   line-height: 1.5;
-  color: #5A6172;
+  color: #3A4152;
   margin: 0;
+  text-shadow: none;
 }
 .why-orgs { display: flex; flex-direction: column; gap: 1.5rem; }
 .org-card {
@@ -922,8 +923,9 @@ body.page-moon.slides .page-header { padding-top: 3.2rem; margin-bottom: 1.5rem;
   font-family: "Noto Sans KR",sans-serif;
   font-size: clamp(13px,1.35vw,16px);
   line-height: 1.55;
-  color: #4A5162;
+  color: #333A4A;
   margin: 0;
+  text-shadow: none;
 }
 .exch-orgname {
   font-family: "Noto Sans KR",sans-serif;
@@ -1090,3 +1092,28 @@ body.page-moon.slides .page-header { padding-top: 3.2rem; margin-bottom: 1.5rem;
   .exch-mid { flex-direction: row; }
   .exch-arrow.to-left, .exch-arrow.to-right { transform: rotate(90deg); }
 }
+
+/* ── Legibility: kill inherited text-shadow inside all light/white cards ── */
+.why-reason *, .org-card *,
+.exch-left *, .exch-right *,
+.deck-card *, .coop-card * {
+  text-shadow: none !important;
+}
+/* ensure all body copy on white cards is dark enough to read */
+.why-rdesc, .exch-d { color: #333A4A; }
+.dc-list li { color: #24293A; }
+
+/* ── Stronger legibility pass: opaque cards + solid dark body text ── */
+.why-reason, .org-card, .deck-card,
+.exch-left, .exch-right, .coop-card {
+  background: #ffffff !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.why-rdesc, .exch-d {
+  color: #2B3140 !important;
+  font-weight: 500 !important;
+  -webkit-font-smoothing: auto;
+}
+.dc-list li { color: #1F2430 !important; }
+.dc-meta, .exch-orgname { color: #6A7386 !important; }
