@@ -1,0 +1,615 @@
+:root {
+  --bg: #000;
+  --fg: #fff;
+  --muted: #888;
+  --font-display: "EB Garamond", "Noto Serif KR", Georgia, serif;
+  --font-ko: "Noto Serif KR", "EB Garamond", serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-display);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+body.home {
+  background: #000;
+}
+
+#earth-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  display: block;
+}
+
+/* Everything in the hub sits above the canvas. */
+body.home .hub {
+  position: relative;
+  z-index: 1;
+}
+body.home .copyright {
+  z-index: 1;
+}
+
+a { color: inherit; text-decoration: none; }
+a:focus-visible { outline: 1px dashed var(--fg); outline-offset: 4px; }
+
+/* ───── Home: arrow hub ───── */
+
+body.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem 1rem 4rem;
+}
+
+.hub {
+  position: relative;
+  width: min(900px, 100%);
+  aspect-ratio: 900 / 640;
+}
+
+.hub-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  white-space: nowrap;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-shadow: 0 0 12px rgba(0,0,0,0.8);
+}
+
+.node-label {
+  font-size: clamp(18px, 2.4vw, 24px);
+  line-height: 1;
+  transition: letter-spacing 0.8s cubic-bezier(.22,.61,.36,1),
+              text-shadow 0.6s ease;
+}
+
+.node-sub {
+  font-size: clamp(11px, 1.2vw, 13px);
+  color: var(--muted);
+  font-style: italic;
+  line-height: 1;
+  transition: color 0.6s ease, letter-spacing 0.8s cubic-bezier(.22,.61,.36,1);
+}
+
+/* Coordinates mirror the SVG anchor points (out of 900 × 640). */
+.node-tl { left: 25%;  top: 23.4%; }   /* 225,150 */
+.node-tr { left: 75%;  top: 23.4%; }   /* 675,150 */
+.node-bl { left: 25%;  top: 71.9%; }   /* 225,460 */
+.node-br { left: 75%;  top: 71.9%; }   /* 675,460 */
+
+/* Hover: signal bloom (luminous halo) + a gentle letter-spacing expansion,
+   like the label coming into focus. Guarded for hover-capable devices, and
+   disabled under reduced-motion. */
+@media (hover: hover) {
+  .node:hover .node-label {
+    letter-spacing: 0.18em;
+    text-shadow: 0 0 18px rgba(150,190,255,0.85), 0 0 4px rgba(255,255,255,0.6);
+  }
+  .node:hover .node-sub {
+    letter-spacing: 0.06em;
+    color: rgba(174,200,255,0.7);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .node-label, .node-sub { transition: none; }
+  .node:hover .node-label { letter-spacing: normal; }
+  .node:hover .node-sub { letter-spacing: normal; }
+}
+
+.name {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  line-height: 1.15;
+  text-shadow: 0 0 16px rgba(0,0,0,0.85);
+}
+
+.name-en {
+  font-size: clamp(28px, 4.8vw, 40px);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.name-ko {
+  font-family: var(--font-ko);
+  font-size: clamp(18px, 2.6vw, 22px);
+  font-weight: 400;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+.copyright {
+  position: fixed;
+  bottom: 1.25rem;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  text-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
+
+/* ───── Subpages ───── */
+
+body.page {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem 6rem;
+  line-height: 1.7;
+  min-height: 100vh;
+  position: relative;
+  z-index: 0;
+}
+
+/* Full-viewport background photo, fixed behind the text column. */
+body.page::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.5)),
+    url("assets/space.jpg");
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+}
+
+/* Header: name points down to the page name (Asher-style). */
+.page-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.page-header .home-link {
+  font-size: clamp(22px, 3.4vw, 30px);
+  font-weight: 500;
+  text-shadow: 0 0 16px rgba(0,0,0,0.9);
+  transition: letter-spacing 0.8s cubic-bezier(.22,.61,.36,1),
+              text-shadow 0.6s ease;
+}
+
+@media (hover: hover) {
+  .page-header .home-link:hover {
+    letter-spacing: 0.12em;
+    text-shadow: 0 0 16px rgba(0,0,0,0.9),
+                 0 0 18px rgba(150,190,255,0.85),
+                 0 0 4px rgba(255,255,255,0.6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-header .home-link { transition: none; }
+  .page-header .home-link:hover { letter-spacing: normal; }
+}
+
+.page-header .home-link .ko {
+  font-family: var(--font-ko);
+  font-size: 0.6em;
+  color: var(--muted);
+  margin-left: 0.4em;
+}
+
+.page-header .down-arrow {
+  display: block;
+  margin: 1.4rem auto;
+  width: 1px;
+  height: 70px;
+  position: relative;
+  background: rgba(255,255,255,0.7);
+}
+.page-header .down-arrow::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 9px;
+  height: 9px;
+  border-right: 1px solid rgba(255,255,255,0.7);
+  border-bottom: 1px solid rgba(255,255,255,0.7);
+  transform: translateX(-50%) rotate(45deg);
+}
+
+.page-header .page-title {
+  font-size: clamp(26px, 4vw, 34px);
+  font-weight: 500;
+  text-shadow: 0 0 16px rgba(0,0,0,0.9);
+}
+
+.back {
+  display: inline-block;
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 3rem;
+  letter-spacing: 0.02em;
+}
+.back:hover { color: var(--fg); }
+
+.page h1 {
+  font-size: clamp(28px, 4vw, 36px);
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+.section {
+  margin-bottom: 2.5rem;
+}
+.section h2 {
+  font-size: 22px;
+  font-weight: 400;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  margin-bottom: 1.2rem;
+}
+
+.page p {
+  font-size: 17px;
+  margin-bottom: 1.25rem;
+  color: #e8e8e8;
+  text-shadow: 0 0 10px rgba(0,0,0,0.7);
+}
+
+.page p.muted {
+  color: var(--muted);
+  font-style: italic;
+}
+
+.page a.inline-link {
+  color: #fff;
+  border-bottom: 1px solid rgba(255,255,255,0.4);
+}
+.page a.inline-link:hover { border-bottom-color: #fff; }
+
+/* ── Writing: platform links (Medium, Brunch) ── */
+.platform-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.platform-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 1.1rem 1.4rem;
+  border: 0.5px solid rgba(255,255,255,0.18);
+  border-radius: 10px;
+  background: rgba(8,10,16,0.62);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  color: #fff;
+  transition: border-color 0.5s ease, background 0.5s ease,
+              letter-spacing 0.8s cubic-bezier(.22,.61,.36,1),
+              box-shadow 0.6s ease;
+}
+
+.platform-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  flex-shrink: 0;
+  color: #fff;
+}
+
+/* Brunch's official quill mark (white, transparent). */
+.platform-logo-brunch img {
+  display: block;
+  height: 26px;
+  width: auto;
+  opacity: 0.92;
+}
+
+.platform-name {
+  font-size: 19px;
+  font-weight: 500;
+}
+
+.platform-handle {
+  margin-left: auto;
+  font-size: 13px;
+  font-style: italic;
+  color: rgba(255,255,255,0.5);
+  text-shadow: 0 0 8px rgba(0,0,0,0.9);
+  transition: color 0.5s ease;
+}
+
+@media (hover: hover) {
+  .platform-link:hover {
+    border-color: rgba(150,190,255,0.5);
+    background: rgba(150,190,255,0.04);
+    box-shadow: 0 0 24px rgba(150,190,255,0.12);
+  }
+  .platform-link:hover .platform-name {
+    text-shadow: 0 0 16px rgba(150,190,255,0.7);
+  }
+  .platform-link:hover .platform-handle {
+    color: rgba(174,200,255,0.7);
+  }
+}
+
+/* ── About: education, interests, profile links ── */
+.about-body {
+  max-width: 620px;
+  margin: 0 auto 3rem;
+}
+
+.about-section {
+  margin-bottom: 3.5rem;
+}
+.about-section:last-child {
+  margin-bottom: 0;
+}
+.about-section h2 {
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-bottom: 0.8rem;
+  margin: 0 0 1.4rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.18);
+}
+
+.about-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.about-entry-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+.about-entry-school {
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
+.about-entry-place {
+  font-size: 16px;
+  color: #fff;
+  white-space: nowrap;
+  text-shadow: 0 0 8px rgba(0,0,0,0.9);
+}
+.about-entry-degree {
+  font-size: 16px;
+  color: rgba(255,255,255,0.65);
+}
+.about-entry-date {
+  font-size: 15px;
+  color: rgba(255,255,255,0.65);
+  white-space: nowrap;
+  text-shadow: 0 0 8px rgba(0,0,0,0.9);
+}
+.about-entry-date strong {
+  color: #fff;
+  font-weight: 500;
+}
+
+.about-tags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+}
+.about-tags li {
+  font-size: 14px;
+  color: #e6e8ec;
+  padding: 6px 14px;
+  border: 0.5px solid rgba(255,255,255,0.2);
+  border-radius: 100px;
+  background: rgba(8,10,16,0.5);
+  transition: border-color 0.5s ease, color 0.5s ease;
+}
+@media (hover: hover) {
+  .about-tags li:hover {
+    border-color: rgba(150,190,255,0.5);
+    color: rgba(200,220,255,0.95);
+  }
+}
+
+.about-links {
+  margin-top: 0;
+  max-width: none;
+}
+
+/* Mobile: shrink the hub gracefully but keep the geometry */
+@media (max-width: 520px) {
+  .node-label { font-size: 15px; }
+  .node-sub { font-size: 10px; }
+  .name-en { font-size: 24px; }
+  .name-ko { font-size: 15px; }
+  .copyright { font-size: 11px; }
+}
+
+/* ═══════════════ OMG microsite additions ═══════════════ */
+
+/* Center block: OMG acronym → subtitle → expanded name.
+   Mirrors .name-en / .name-ko; the expansion is a quiet gloss. */
+.name-expand {
+  font-size: clamp(11px, 1.3vw, 13px);
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5);
+  margin-top: 10px;
+}
+.name-en { letter-spacing: 0.08em; }
+
+/* Soft radial backing so the OMG block reads cleanly over any arrow lines. */
+body.home .name::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 340px;
+  height: 200px;
+  z-index: -1;
+  background: radial-gradient(ellipse at center,
+    rgba(0,0,0,0.82) 0%,
+    rgba(0,0,0,0.6) 42%,
+    rgba(0,0,0,0) 72%);
+  pointer-events: none;
+}
+
+/* Moon canvas: identical placement to the Earth canvas. */
+#moon-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  display: block;
+}
+body.home .hub { position: relative; z-index: 1; }
+body.home .copyright { z-index: 1; }
+
+/* ── Problem page: failure cards, built on the .page subpage system ── */
+
+.lede {
+  max-width: 620px;
+  margin: 0 auto 3rem;
+  font-size: 17px;
+  line-height: 1.7;
+  color: #e8e8e8;
+  text-shadow: 0 0 10px rgba(0,0,0,0.7);
+}
+.lede strong { color: #fff; font-weight: 500; }
+
+.fail-grid {
+  max-width: 620px;
+  margin: 0 auto 3.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.fail-card {
+  border: 0.5px solid rgba(255,255,255,0.18);
+  border-radius: 12px;
+  background: rgba(8,10,16,0.58);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  padding: 1.6rem 1.7rem;
+  transition: border-color 0.5s ease, box-shadow 0.6s ease;
+}
+@media (hover: hover) {
+  .fail-card:hover {
+    border-color: rgba(150,190,255,0.45);
+    box-shadow: 0 0 26px rgba(150,190,255,0.10);
+  }
+}
+
+.fail-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.3rem;
+}
+.fail-tag {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(217,85,107,0.9);   /* failure — the one warm signal */
+}
+.fail-date {
+  font-size: 13px;
+  font-style: italic;
+  color: rgba(255,255,255,0.45);
+  white-space: nowrap;
+}
+.fail-title {
+  font-size: 21px;
+  font-weight: 500;
+  color: #fff;
+  margin-bottom: 0.9rem;
+  text-shadow: 0 0 12px rgba(0,0,0,0.8);
+}
+
+.fail-chain {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.fail-chain li {
+  position: relative;
+  padding-left: 1.5rem;
+  font-size: 15px;
+  line-height: 1.55;
+  color: #dfe3ea;
+}
+.fail-chain li::before {
+  content: "↓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: rgba(255,255,255,0.4);
+  font-size: 14px;
+}
+.fail-chain li:first-child::before { content: "•"; color: rgba(174,200,255,0.7); }
+.fail-chain li strong { color: #fff; font-weight: 500; }
+.fail-chain li em {
+  font-style: normal;
+  color: rgba(217,85,107,0.92);
+  font-weight: 500;
+}
+
+.converge {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 1.5rem 1.7rem;
+  border-top: 1px solid rgba(255,255,255,0.18);
+  font-size: 16px;
+  line-height: 1.7;
+  color: #e8e8e8;
+}
+.converge strong { color: rgba(174,200,255,0.95); font-weight: 500; }
+
+/* section eyebrow reused from about-section h2 styling */
+.eyebrow {
+  max-width: 620px;
+  margin: 0 auto 1.4rem;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(255,255,255,0.18);
+}
