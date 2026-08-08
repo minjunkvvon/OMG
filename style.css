@@ -636,138 +636,173 @@ body.page-moon .converge {
   border-bottom: 1px solid rgba(255,255,255,0.18);
 }
 
-/* ═══════════ Problem page — slide sections (scroll-through) ═══════════ */
+/* ═══════════ Problem page — exact slide match, moon background ═══════════ */
 
-/* Each slide sits in a comfortable band; the presenter scrolls one to the next.
-   Wider than the default .page column so the two-column cards breathe. */
-body.page-moon { max-width: none; padding: 0; }
-body.page-moon .page-header { padding-top: 3.5rem; margin-bottom: 2rem; position: relative; z-index: 1; }
+body.page-moon.slides { max-width: none; padding: 0; }
+body.page-moon.slides .page-header { padding-top: 3.2rem; margin-bottom: 1.5rem; position: relative; z-index: 1; }
 
-.slide {
+.deck-slide {
   position: relative;
   z-index: 1;
-  max-width: 1100px;
+  max-width: 1180px;
   margin: 0 auto;
-  padding: 2.5rem 2rem 4rem;
-}
-.slide + .slide {
-  border-top: 1px solid rgba(255,255,255,0.08);
-  margin-top: 1rem;
+  padding: 3.5rem 3rem 4.5rem;
 }
 
-.slide-eyebrow {
-  font-size: 13px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--accent, #E8B04B);
-  margin-bottom: 1.1rem;
+/* slide kicker — amber, exactly as "1.필요성 인식" / "2.심층 분석" */
+.deck-kicker {
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  color: #E0A93B;
+  margin-bottom: 1.2rem;
 }
-/* amber accent only here (matches the deck's section kicker) */
-:root { --accent: #E8B04B; }
 
-.slide-title {
-  font-size: clamp(30px, 4.6vw, 46px);
-  font-weight: 500;
+/* bold slab-serif title, big and heavy like the slides */
+.deck-h1 {
+  font-family: "Roboto Slab", "Noto Sans KR", serif;
+  font-weight: 800;
+  font-size: clamp(34px, 5vw, 58px);
+  line-height: 1.1;
   color: #fff;
-  line-height: 1.15;
-  margin: 0 0 1.3rem;
-  text-shadow: 0 0 18px rgba(0,0,0,0.85);
+  margin: 0 0 1.5rem;
+  letter-spacing: -0.01em;
+  text-shadow: 0 0 22px rgba(0,0,0,0.9);
 }
 
-.slide-lede {
-  font-size: clamp(15px, 1.7vw, 18px);
-  line-height: 1.7;
-  color: rgba(202,220,252,0.88);
-  margin: 0 0 2.6rem;
-  text-shadow: 0 0 12px rgba(0,0,0,0.8);
+.deck-sub {
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 400;
+  font-size: clamp(15px, 1.8vw, 20px);
+  line-height: 1.6;
+  color: #C6CEE0;
+  margin: 0 0 2.8rem;
+  text-shadow: 0 0 14px rgba(0,0,0,0.85);
 }
 
-/* two-column failure cards for section 1 */
-.fail-grid.two-col {
-  max-width: none;
+/* ── Slide 1 · two white failure cards ── */
+.deck-cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.6rem;
+  gap: 2rem;
+}
+.deck-card {
+  background: rgba(255,255,255,0.97);
+  border-radius: 18px;
+  padding: 2.4rem 2.4rem 2.6rem;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+}
+.dc-tag {
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: 0.04em;
+  color: #C0453F;
+  margin-bottom: 1.4rem;
+}
+.dc-meta {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 15px;
+  color: #8A93A6;
+  margin-bottom: 1.6rem;
+}
+.dc-title {
+  font-family: "Roboto Slab", "Noto Sans KR", serif;
+  font-weight: 700;
+  font-size: clamp(21px, 2.3vw, 27px);
+  color: #10131A;
+  margin-bottom: 1.5rem;
+}
+.dc-list {
+  list-style: none;
   margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
 }
-
-/* the closing "need" line — the warm signal, set apart */
-.fail-chain li.need {
-  margin-top: 0.5rem;
-  padding-top: 0.85rem;
-  border-top: 1px solid rgba(255,255,255,0.12);
+.dc-list li {
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: clamp(15px, 1.5vw, 18px);
+  line-height: 1.5;
+  color: #2C3242;
 }
-.fail-chain li.need::before { content: "→"; color: rgba(217,85,107,0.9); }
-.fail-chain li.need strong { color: rgba(217,85,107,0.95); }
+.dc-list li b { font-weight: 700; color: #10131A; }
+.dc-list li b.warn { color: #C0453F; }
+.dc-list li.warn-line {
+  color: #A33645;
+  font-weight: 700;
+}
+.dc-list li.warn-line b { color: #A33645; }
 
-/* ── Section 2 · cause grid (2×2) ── */
+/* ── Slide 2 · four navy cause cards ── */
 .cause-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-  margin: 0;
+  gap: 1.8rem;
 }
-
 .cause-card {
   display: flex;
-  gap: 1.1rem;
-  padding: 1.7rem 1.8rem;
-  border: 0.5px solid rgba(255,255,255,0.16);
-  border-radius: 14px;
-  background: rgba(10,13,26,0.6);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
-  transition: border-color 0.5s ease, box-shadow 0.6s ease;
+  gap: 1.4rem;
+  padding: 2rem 2.1rem;
+  background: rgba(23,31,58,0.88);
+  border-radius: 16px;
+  box-shadow: 0 8px 36px rgba(0,0,0,0.45);
 }
-@media (hover: hover) {
-  .cause-card:hover {
-    border-color: rgba(150,190,255,0.4);
-    box-shadow: 0 0 26px rgba(150,190,255,0.1);
-  }
-}
-
 .cause-num {
   flex-shrink: 0;
-  width: 3rem;
-  height: 3rem;
+  width: 3.4rem;
+  height: 3.4rem;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
-  font-weight: 500;
-  color: rgba(202,220,252,0.92);
-  background: rgba(28,38,78,0.9);
+  font-family: "Roboto Slab", serif;
+  font-size: 26px;
+  font-weight: 700;
+  color: #C6CEE0;
+  background: #2A3358;
 }
-.cause-num.accent {
-  background: var(--accent);
-  color: #0B1026;
-}
-
+.cause-num.accent { background: #E0A93B; color: #131A2E; }
 .cause-body { flex: 1; min-width: 0; }
 .cause-title {
-  font-size: 20px;
-  font-weight: 500;
+  font-family: "Roboto Slab", "Noto Sans KR", serif;
+  font-weight: 700;
+  font-size: clamp(19px, 2vw, 24px);
   color: #fff;
-  margin: 0.15rem 0 0.7rem;
+  margin: 0.2rem 0 0.9rem;
 }
 .cause-desc {
-  font-size: 14.5px;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: clamp(14px, 1.35vw, 16px);
   line-height: 1.55;
-  color: rgba(220,227,234,0.82);
-  margin: 0 0 1rem;
+  color: #C6CEE0;
+  margin: 0 0 1.2rem;
 }
 .cause-arrow {
-  font-size: 14px;
-  font-weight: 500;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 700;
   font-style: italic;
+  font-size: clamp(14px, 1.35vw, 16px);
   line-height: 1.5;
-  color: var(--accent);
+  color: #E0A93B;
   margin: 0;
 }
+.cause-arrow .uline { text-decoration: underline; text-decoration-color: rgba(224,169,59,0.6); }
 
-/* Mobile: stack both grids */
-@media (max-width: 760px) {
-  .fail-grid.two-col, .cause-grid { grid-template-columns: 1fr; }
-  .slide { padding: 2.5rem 1.3rem 3rem; }
+.deck-pageno {
+  text-align: right;
+  max-width: 1180px;
+  margin: 1rem auto 0;
+  padding: 0 3rem;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 14px;
+  color: #C6CEE0;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 820px) {
+  .deck-cards, .cause-grid { grid-template-columns: 1fr; }
+  .deck-slide { padding: 2.5rem 1.4rem 3rem; }
 }
