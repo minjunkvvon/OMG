@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,10 +7,10 @@
 <title>Problem — OMG</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+KR:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+KR:wght@400;500&family=Roboto+Slab:wght@500;700;800&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
-<body class="page page-moon">
+<body class="page page-moon slides">
 <canvas id="moon-canvas" aria-hidden="true"></canvas>
 <header class="page-header">
   <a class="home-link" href="index.html">OMG<span class="ko">달에 닿기 위한 마지막 3&#8202;km</span></a>
@@ -18,52 +18,48 @@
   <div class="page-title">Problem</div>
 </header>
 
-<!-- ═══════════ SECTION 1 · 필요성 인식 ═══════════ -->
-<section class="slide">
-  <div class="slide-eyebrow">1. 필요성 인식</div>
-  <h2 class="slide-title">HAKUTO-R M1/M2의 실패</h2>
-  <p class="slide-lede">
+<!-- ═══════════ SLIDE 1 · 필요성 인식 ═══════════ -->
+<section class="deck-slide">
+  <div class="deck-kicker">1.필요성 인식</div>
+  <h2 class="deck-h1">HAKUTO-R M1/M2의 실패</h2>
+  <p class="deck-sub">
     M1/M2 미션 모두 LRF 센서의 소프트웨어 / 하드웨어 이상 문제로,<br>
     ispace는 신뢰성이 보장된 LRF 센서를 개발 / 운용하는 기업을 필요로 하고 있습니다.
   </p>
 
-  <div class="fail-grid two-col">
-    <article class="fail-card">
-      <div class="fail-head">
-        <span class="fail-tag">Mission 1</span>
-        <span class="fail-date">2023.04 · Atlas Crater</span>
-      </div>
-      <div class="fail-title">Software / Filter 알고리즘 오류</div>
-      <ul class="fail-chain">
-        <li>crater rim 통과 시 <strong>측정 고도와 추정 고도의 큰 불일치</strong> 발생</li>
-        <li>software가 정상 sensor 값을 <strong>이상값으로 오판·차단 (filter)</strong></li>
-        <li>실제 5&#8202;km 상공에서 <strong>"착륙 완료"로 인식</strong></li>
-        <li>호버링 지속 → <em>연료 소진 → 자유낙하</em></li>
-        <li class="need"><strong>참값과 근사한 데이터를 불러올 수 있는 LRF 센서가 필요</strong></li>
+  <div class="deck-cards">
+    <article class="deck-card">
+      <div class="dc-tag">MISSION 1</div>
+      <div class="dc-meta">2023.04 · Atlas Crater</div>
+      <div class="dc-title">Software / Filter 알고리즘 오류</div>
+      <ul class="dc-list">
+        <li>crater rim 통과 시 <b>측정 고도와 추정 고도의 큰 불일치</b> 발생</li>
+        <li>→ software가 정상 sensor 값을 <b>이상값으로 오판·차단(filter)</b></li>
+        <li>→ 실제 5&#8202;km 상공에서 "착륙 완료"로 인식</li>
+        <li>→ 호버링 지속 → <b class="warn">연료 소진 → 자유낙하</b></li>
+        <li class="warn-line">→ <b>참값과 근사한 데이터를 불러올 수 있는 LRF 센서가 필요</b></li>
       </ul>
     </article>
 
-    <article class="fail-card">
-      <div class="fail-head">
-        <span class="fail-tag">Mission 2 · RESILIENCE</span>
-        <span class="fail-date">2025.06.06 · Mare Frigoris</span>
-      </div>
-      <div class="fail-title">LRF Hardware 이상</div>
-      <ul class="fail-chain">
-        <li>유효 거리값 획득이 <strong>치명적으로 지연</strong> (예정 3&#8202;km → 실제 893&#8202;m)</li>
-        <li>남은 고도 192&#8202;m에서 감속 개시, <strong>제동 불가</strong></li>
-        <li>약 42&#8202;m/s로 표면 충돌 (hard landing)</li>
-        <li class="need"><strong>신뢰성이 높은 하드웨어 기반이 필요</strong></li>
+    <article class="deck-card">
+      <div class="dc-tag">MISSION 2&nbsp;&nbsp;(RESILIENCE)</div>
+      <div class="dc-meta">2025.06.06 · Mare Frigoris</div>
+      <div class="dc-title">LRF Hardware 이상</div>
+      <ul class="dc-list">
+        <li>유효 거리값 획득이 <b>치명적으로 지연</b> (예정 3&#8202;km → 실제 893&#8202;m)</li>
+        <li>→ 남은 고도 192&#8202;m에서 감속 개시, <b>제동 불가</b></li>
+        <li>→ 약 42&#8202;m/s로 표면 충돌 (hard landing)</li>
+        <li class="warn-line">→ <b>신뢰성이 높은 하드웨어 기반이 필요</b></li>
       </ul>
     </article>
   </div>
 </section>
 
-<!-- ═══════════ SECTION 2 · 심층 분석 ═══════════ -->
-<section class="slide">
-  <div class="slide-eyebrow">2. 심층 분석</div>
-  <h2 class="slide-title">LRF는 왜 늦게 측정을 시작했는가</h2>
-  <p class="slide-lede">
+<!-- ═══════════ SLIDE 2 · 심층 분석 ═══════════ -->
+<section class="deck-slide">
+  <div class="deck-kicker">2.심층 분석</div>
+  <h2 class="deck-h1">LRF는 왜 늦게 측정을 시작했는가</h2>
+  <p class="deck-sub">
     LRF는 달착륙 임무 과정의 극한 환경을 견디면서 낮은 반사율과 요구하는 측정 거리를 만족할 수 있어야 하기에,<br>
     가장 핵심적인 달착륙 기동 센서임과 동시에 가장 신뢰성이 높아야 합니다.
   </p>
@@ -74,7 +70,7 @@
       <div class="cause-body">
         <div class="cause-title">검증 공백 (Validation Gap)</div>
         <p class="cause-desc">고속 및 장거리 환경 및 달착륙 임무 환경의 열/진동 해석에 대한 센서 차원에서의 검증 및 인증 절차가 부족함.</p>
-        <p class="cause-arrow">→ 수행 환경을 모사하고 검증/인증 할 수 있는 LRF Test Field가 있어야 함.</p>
+        <p class="cause-arrow">-&gt; 수행 환경을 모사하고 검증/인증 할 수 있는 <span class="uline">LRF Test Field</span>가 있어야 함.</p>
       </div>
     </article>
 
@@ -83,7 +79,7 @@
       <div class="cause-body">
         <div class="cause-title">낮은 albedo</div>
         <p class="cause-desc">착륙지 반사율을 0.2로 가정하였으나, 실제 반사율이 더 낮으면 측정 시작 기준의 Logic에 악영향.</p>
-        <p class="cause-arrow">→ 미션 사용 Range보다 Margin을 높게 챙기는 LRF 제작이 가능해야 함.</p>
+        <p class="cause-arrow">-&gt; 미션 사용 Range보다 Margin을 높게 챙기는 LRF 제작이 가능해야 함.</p>
       </div>
     </article>
 
@@ -92,7 +88,7 @@
       <div class="cause-body">
         <div class="cause-title">방사선 열화</div>
         <p class="cause-desc">LET 궤도상 장시간 방사선 피폭으로 LRF 센서의 성능 저하 가능성. 특히 Van Allen 근방에서 최대 6000&#8202;Gy/day의 방사선 피폭 수치를 견딜 수 있어야 함.</p>
-        <p class="cause-arrow">→ LRF는 5개월의 임무 기간 동안 Robust Radioactive를 가져야 함.</p>
+        <p class="cause-arrow">-&gt; LRF는 5개월의 임무 기간 동안 Robust Radioactive를 가져야 함.</p>
       </div>
     </article>
 
@@ -101,10 +97,11 @@
       <div class="cause-body">
         <div class="cause-title">공급사 변경</div>
         <p class="cause-desc">M1 LRF 단종 → 교체 unit의 laser output이 M1보다 낮음.</p>
-        <p class="cause-arrow">→ 목표 요구치를 만족하며 공급 신뢰성이 높은 제작사가 필요함.</p>
+        <p class="cause-arrow">-&gt; 목표 요구치를 만족하며 공급 신뢰성이 높은 제작사가 필요함.</p>
       </div>
     </article>
   </div>
+  <div class="deck-pageno">03</div>
 </section>
 
 <script type="importmap">
