@@ -496,6 +496,28 @@ body.home .name::before {
 body.home .hub { position: relative; z-index: 1; }
 body.home .copyright { z-index: 1; }
 
+/* Subpages that use the live rotating moon (instead of the static photo).
+   The canvas sits behind; content floats above with a soft dark scrim so text
+   stays legible over the bright lunar limb. */
+body.page-moon {
+  z-index: 0;
+  background: #000;   /* pure black base — no STS-26 photo on moon pages */
+}
+body.page-moon::before {
+  content: none;      /* kill the inherited space.jpg photo entirely */
+  display: none;
+  background: none;
+  background-image: none;
+}
+body.page-moon .page-header,
+body.page-moon .lede,
+body.page-moon .eyebrow,
+body.page-moon .fail-grid,
+body.page-moon .converge {
+  position: relative;
+  z-index: 1;
+}
+
 /* ── Problem page: failure cards, built on the .page subpage system ── */
 
 .lede {
