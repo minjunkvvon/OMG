@@ -635,3 +635,139 @@ body.page-moon .converge {
   padding-bottom: 0.8rem;
   border-bottom: 1px solid rgba(255,255,255,0.18);
 }
+
+/* ═══════════ Problem page — slide sections (scroll-through) ═══════════ */
+
+/* Each slide sits in a comfortable band; the presenter scrolls one to the next.
+   Wider than the default .page column so the two-column cards breathe. */
+body.page-moon { max-width: none; padding: 0; }
+body.page-moon .page-header { padding-top: 3.5rem; margin-bottom: 2rem; position: relative; z-index: 1; }
+
+.slide {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 4rem;
+}
+.slide + .slide {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  margin-top: 1rem;
+}
+
+.slide-eyebrow {
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent, #E8B04B);
+  margin-bottom: 1.1rem;
+}
+/* amber accent only here (matches the deck's section kicker) */
+:root { --accent: #E8B04B; }
+
+.slide-title {
+  font-size: clamp(30px, 4.6vw, 46px);
+  font-weight: 500;
+  color: #fff;
+  line-height: 1.15;
+  margin: 0 0 1.3rem;
+  text-shadow: 0 0 18px rgba(0,0,0,0.85);
+}
+
+.slide-lede {
+  font-size: clamp(15px, 1.7vw, 18px);
+  line-height: 1.7;
+  color: rgba(202,220,252,0.88);
+  margin: 0 0 2.6rem;
+  text-shadow: 0 0 12px rgba(0,0,0,0.8);
+}
+
+/* two-column failure cards for section 1 */
+.fail-grid.two-col {
+  max-width: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.6rem;
+  margin: 0;
+}
+
+/* the closing "need" line — the warm signal, set apart */
+.fail-chain li.need {
+  margin-top: 0.5rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+.fail-chain li.need::before { content: "→"; color: rgba(217,85,107,0.9); }
+.fail-chain li.need strong { color: rgba(217,85,107,0.95); }
+
+/* ── Section 2 · cause grid (2×2) ── */
+.cause-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin: 0;
+}
+
+.cause-card {
+  display: flex;
+  gap: 1.1rem;
+  padding: 1.7rem 1.8rem;
+  border: 0.5px solid rgba(255,255,255,0.16);
+  border-radius: 14px;
+  background: rgba(10,13,26,0.6);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  transition: border-color 0.5s ease, box-shadow 0.6s ease;
+}
+@media (hover: hover) {
+  .cause-card:hover {
+    border-color: rgba(150,190,255,0.4);
+    box-shadow: 0 0 26px rgba(150,190,255,0.1);
+  }
+}
+
+.cause-num {
+  flex-shrink: 0;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 500;
+  color: rgba(202,220,252,0.92);
+  background: rgba(28,38,78,0.9);
+}
+.cause-num.accent {
+  background: var(--accent);
+  color: #0B1026;
+}
+
+.cause-body { flex: 1; min-width: 0; }
+.cause-title {
+  font-size: 20px;
+  font-weight: 500;
+  color: #fff;
+  margin: 0.15rem 0 0.7rem;
+}
+.cause-desc {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: rgba(220,227,234,0.82);
+  margin: 0 0 1rem;
+}
+.cause-arrow {
+  font-size: 14px;
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--accent);
+  margin: 0;
+}
+
+/* Mobile: stack both grids */
+@media (max-width: 760px) {
+  .fail-grid.two-col, .cause-grid { grid-template-columns: 1fr; }
+  .slide { padding: 2.5rem 1.3rem 3rem; }
+}
