@@ -10,7 +10,8 @@
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+KR:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
-<body class="page">
+<body class="page page-moon">
+<canvas id="moon-canvas" aria-hidden="true"></canvas>
 <header class="page-header">
   <a class="home-link" href="index.html">OMG<span class="ko">달에 닿기 위한 마지막 3&#8202;km</span></a>
   <span class="down-arrow" aria-hidden="true"></span>
@@ -62,5 +63,12 @@
   방향은 반대지만 뿌리는 같다 — <strong>실제 달 강하 조건에서 altitude-sensing chain을 검증하지 못한 것.</strong>
 </p>
 
+<script type="importmap">
+{ "imports": { "three": "./assets/three.module.min.js" } }
+</script>
+<script type="module">
+import { initMoonScene } from './assets/moon-scene.js';
+initMoonScene(document.getElementById('moon-canvas'));
+</script>
 </body>
 </html>
